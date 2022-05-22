@@ -4,6 +4,15 @@ import Lib
 
 type Board = [[Square]]
 
+initialBoardStr = unlines ["rnbqkbnr"
+                          ,"pppppppp"
+                          ,"        "
+                          ,"        "
+                          ,"        "
+                          ,"        "
+                          ,"PPPPPPPP"
+                          ,"RNBQKBNR" ]
+
 type Square = Maybe Piece 
 
 showSquare :: Square -> Char
@@ -31,20 +40,20 @@ showPiece (Piece Black Rook) = 'r'
 showPiece (Piece Black Queen) = 'q'
 showPiece (Piece Black King) = 'k'
 
-readPiece :: Char -> Piece
-readPiece 'P' = (Piece White Pawn)
-readPiece 'N' = (Piece White Knight)
-readPiece 'B' =  (Piece White Bishop)
-readPiece 'R' =  (Piece White Rook)
-readPiece 'Q' =  (Piece White Queen)
-readPiece 'K' =  (Piece White King)
-readPiece 'p' =  (Piece Black Pawn) 
-readPiece 'n' = (Piece Black Knight)
-readPiece 'b' = (Piece Black Bishop)
-readPiece 'r' = (Piece Black Rook)
-readPiece 'q' = (Piece Black Queen)
-readPiece 'k' = (Piece Black King)
-
+readPiece :: Char -> Maybe Piece
+readPiece 'P' = Just (Piece White Pawn)
+readPiece 'N' = Just (Piece White Knight)
+readPiece 'B' = Just (Piece White Bishop)
+readPiece 'R' = Just (Piece White Rook)
+readPiece 'Q' = Just (Piece White Queen)
+readPiece 'K' = Just (Piece White King)
+readPiece 'p' = Just (Piece Black Pawn) 
+readPiece 'n' = Just (Piece Black Knight)
+readPiece 'b' = Just (Piece Black Bishop)
+readPiece 'r' = Just (Piece Black Rook)
+readPiece 'q' = Just (Piece Black Queen)
+readPiece 'k' = Just (Piece Black King)
+readPiece _ = Nothing
 
 main :: IO ()
 main = someFunc
