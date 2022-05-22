@@ -28,8 +28,9 @@ type Square = Maybe Piece
 showSquare :: Square -> Char
 showSquare = maybe ' ' showPiece 
 
-readSquare :: Char -> Square
-readSquare = readPiece
+readSquare :: Char -> Maybe Square
+readSquare '.' = Just Nothing
+readSquare c   =  fmap Just readPiece c
 
 data Piece = Piece Pcolor Ptype                             deriving (Show)
 data Pcolor = White | Black                                 deriving (Show)
