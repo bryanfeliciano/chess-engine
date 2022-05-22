@@ -13,14 +13,17 @@ initialBoardStr = unlines ["rnbqkbnr"
                           ,"PPPPPPPP"
                           ,"RNBQKBNR" ]
 
+readBoard :: String -> Board
+readBoard = map readRow . lines
+    where readRow = map readSquare
+
 type Square = Maybe Piece 
 
 showSquare :: Square -> Char
 showSquare = maybe ' ' showPiece 
 
 readSquare :: Char -> Square
-readSquare ' ' = Nothing
-readSquare c = Just (readPiece c)
+readSquare = readPiece
 
 data Piece = Piece Pcolor Ptype                             deriving (Show)
 data Pcolor = White | Black                                 deriving (Show)
