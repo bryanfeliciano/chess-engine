@@ -1,5 +1,6 @@
 module Main where
 
+import Data.Char
 import Lib
 
 type Board = [[Square]]
@@ -16,6 +17,11 @@ initialBoardStr = unlines ["rnbqkbnr"
 readBoard :: String -> Board
 readBoard = map readRow . lines
     where readRow = map readSquare
+
+showBoard :: Board -> String
+showBoard = unlines . map showRow
+   where
+       showRow = map showSquare
 
 type Square = Maybe Piece 
 
@@ -43,20 +49,21 @@ showPiece (Piece Black Rook) = 'r'
 showPiece (Piece Black Queen) = 'q'
 showPiece (Piece Black King) = 'k'
 
+typeList :: [(Char,Ptype)]
+typeList = [('p',Pawn)
+           ,('n',Knight)
+           ,('b',Bishop)
+           ,('r',Rook)
+           ,('q',Queen)
+           ,('k',King)]
+
+
 readPiece :: Char -> Maybe Piece
-readPiece 'P' = Just (Piece White Pawn)
-readPiece 'N' = Just (Piece White Knight)
-readPiece 'B' = Just (Piece White Bishop)
-readPiece 'R' = Just (Piece White Rook)
-readPiece 'Q' = Just (Piece White Queen)
-readPiece 'K' = Just (Piece White King)
-readPiece 'p' = Just (Piece Black Pawn) 
-readPiece 'n' = Just (Piece Black Knight)
-readPiece 'b' = Just (Piece Black Bishop)
-readPiece 'r' = Just (Piece Black Rook)
-readPiece 'q' = Just (Piece Black Queen)
-readPiece 'k' = Just (Piece Black King)
-readPiece _ = Nothing
+readPiece c = fmap makePiece lookUpType
+   where
+       color      = if (isUpper c) then White else Black
+       lookUpType = lookup (toLower c) typeList
+       makePiece  = Piece color
 
 main :: IO ()
 main = someFunc
