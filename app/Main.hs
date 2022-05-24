@@ -67,4 +67,5 @@ readPiece c = fmap makePiece lookUpType
        makePiece  = Piece color
 
 main :: IO ()
-main = someFunc
+main = do
+    print "this works!"
